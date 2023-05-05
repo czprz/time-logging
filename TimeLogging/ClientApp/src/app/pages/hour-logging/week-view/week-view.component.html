@@ -1,0 +1,90 @@
+<p-table
+  #dt
+  [value]="accounts"
+  [globalFilterFields]="['name']"
+  [tableStyle]="{ 'min-width': '75rem' }"
+  [rowHover]="true"
+  dataKey="id"
+  currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+>
+  <ng-template pTemplate="caption">
+    <div class="flex align-items-center justify-content-between">
+      <span class="p-input-icon-left">
+        <i class="pi pi-search"></i>
+        <input
+          pInputText
+          type="text"
+          (input)="dt.filterGlobal($any($event.target).value, 'contains')"
+          placeholder="Search..."
+        />
+      </span>
+    </div>
+  </ng-template>
+  <ng-template pTemplate="header">
+    <tr>
+      <th pSortableColumn="name" style="min-width: 15rem">
+        Name <p-sortIcon field="name"></p-sortIcon>
+      </th>
+      <th>Monday</th>
+      <th>Tuesday</th>
+      <th>Wednesday</th>
+      <th>Thursday</th>
+      <th>Friday</th>
+      <!--      TODO: Show week and work week-->
+      <th>Saturday</th>
+      <th>Sunday</th>
+      <th></th>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="body" let-account>
+    <tr>
+      <td>
+        <app-code-selector [code]="account.name"></app-code-selector>
+      </td>
+      <td>
+        <app-hour-selector [value]="account.times" [date]="week?.monday"></app-hour-selector>
+      </td>
+      <td>
+        <app-hour-selector [value]="account.times" [date]="week?.tuesday"></app-hour-selector>
+      </td>
+      <td>
+        <app-hour-selector [value]="account.times" [date]="week?.wednesday"></app-hour-selector>
+      </td>
+      <td>
+        <app-hour-selector [value]="account.times" [date]="week?.thursday"></app-hour-selector>
+      </td>
+      <td>
+        <app-hour-selector [value]="account.times" [date]="week?.friday"></app-hour-selector>
+      </td>
+      <td>
+        <app-hour-selector [value]="account.times" [date]="week?.saturday"></app-hour-selector>
+      </td>
+      <td>
+        <app-hour-selector [value]="account.times" [date]="week?.sunday"></app-hour-selector>
+      </td>
+      <td>
+        <button
+          pButton
+          pRipple
+          icon="pi pi-trash"
+          class="p-button-rounded p-button-warning"
+          (click)="remove(account)"
+        ></button>
+      </td>
+    </tr>
+  </ng-template>
+</p-table>
+
+<p-toolbar
+  styleClass="mb-4 gap-2"
+  [style]="{ 'border-top-left-radius': '0', 'border-top-right-radius': '0' }"
+>
+  <ng-template pTemplate="left">
+    <p-splitButton
+      label="New"
+      [model]="options"
+      (onClick)="new()"
+      styleClass="mr-2 mb-2"
+    ></p-splitButton>
+  </ng-template>
+</p-toolbar>

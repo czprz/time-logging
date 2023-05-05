@@ -1,0 +1,14 @@
+:host {
+  th:not(:first-child), td:not(:first-child) {
+    text-align: center;
+  }
+
+  td {
+    padding: 0 !important;
+  }
+
+  .p-toolbar {
+    border-top-left-radius: 0 !important;
+    border-top-right-radius: 0 !important;
+  }
+}

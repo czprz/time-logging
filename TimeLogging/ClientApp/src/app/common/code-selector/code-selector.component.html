@@ -1,0 +1,10 @@
+<p-autoComplete [(ngModel)]="code" [group]="true" [suggestions]="filteredCodes"
+                (completeMethod)="filterCodes($event)" field="label" [dropdown]="true" appendTo="body" [style]="{'width': '100%'}">
+
+  <ng-template let-group pTemplate="group">
+    <div class="flex align-items-center">
+      <span>{{ group.label }}</span>
+    </div>
+  </ng-template>
+
+</p-autoComplete>

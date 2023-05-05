@@ -1,0 +1,59 @@
+{
+  "tracking": [
+    {
+      "id": "514f9b62-eb43-40f6-9f1c-b4de965d0ed3",
+      "name": "Feature1",
+      "description": "This is a description of the feature",
+      "times": [
+        {
+          "id": "514f9b62-eb43-40f6-9f1c-b4de965d0ed3",
+          "date": "2023-04-30",
+          "time": "04:05:00"
+        }
+      ]
+    },
+    {
+      "id": "514f9b62-eb43-40f5-9f1c-b4de965d0ed3",
+      "name": "Maintenance",
+      "description": "This is a description of the feature",
+      "times": [
+        {
+          "id": "514f9b62-eb43-40f6-9f1c-b4de965d0ed3",
+          "date": "2023-05-01",
+          "time": "05:30:00"
+        }
+      ]
+    }
+  ],
+  "codes": [
+    {
+      "id": "514f9b62-eb43-40f6-9f1c-b4de965d0ed3",
+      "name": "Service1",
+      "description": "This is a description of the service",
+      "items": [
+        {
+          "id": "514f9b62-eb43-40f6-9f1c-b4de965d0ed3",
+          "name": "Maintenance",
+          "description": "This is a description of the feature"
+        }
+      ]
+    },
+    {
+      "id": "514f9b62-eb43-40f6-9f1c-b4de965d0ed3",
+      "name": "Service2",
+      "description": "This is a description of the service",
+      "items": [
+        {
+          "id": "514f9b62-eb43-40f6-9f1c-b4de965d0ed3",
+          "name": "Feature1",
+          "description": "This is a description of the feature"
+        },
+        {
+          "id": "514f9b62-eb43-40f6-9f1c-b4de965d0ed3",
+          "name": "Feature2",
+          "description": "This is a description of the feature"
+        }
+      ]
+    }
+  ]
+}
