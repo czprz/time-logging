@@ -3,8 +3,31 @@
     text-align: center;
   }
 
+  tr {
+    background: transparent;
+
+    &:first-child {
+      td {
+        border-top: 0 !important;
+      }
+    }
+
+    &:last-child {
+      td {
+        border-bottom: 0 !important;
+      }
+
+      th {
+        border-width: 0 0 1px 0 !important;
+      }
+    }
+  }
+
   td {
     padding: 0 !important;
+    border-width: 0 1px 1px 0 !important;
+    border-color: #3f4b5b !important;
+    border-style: solid !important;
   }
 
   .p-toolbar {

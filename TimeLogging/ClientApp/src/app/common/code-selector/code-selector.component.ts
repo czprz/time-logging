@@ -1,4 +1,10 @@
-import { Component, ElementRef, Input, OnInit } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  Input,
+  OnInit,
+  ViewEncapsulation,
+} from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { map, take } from 'rxjs';
 import { FilterService } from 'primeng/api';
@@ -7,6 +13,7 @@ import { FilterService } from 'primeng/api';
   selector: 'app-code-selector',
   templateUrl: './code-selector.component.html',
   styleUrls: ['./code-selector.component.scss'],
+  encapsulation: ViewEncapsulation.Emulated,
 })
 export class CodeSelectorComponent implements OnInit {
   @Input()
