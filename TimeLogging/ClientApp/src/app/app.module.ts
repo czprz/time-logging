@@ -7,6 +7,8 @@ import { RouterModule, Routes } from '@angular/router';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ButtonModule } from 'primeng/button';
+import { ToolbarComponent } from './components/toolbar/toolbar.component';
+import {OverlayPanelModule} from "primeng/overlaypanel";
 
 const routes: Routes = [
   {
@@ -19,7 +21,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [AppComponent, ToolbarComponent],
   imports: [
     ButtonModule,
     BrowserModule,
@@ -27,6 +29,7 @@ const routes: Routes = [
     FormsModule,
     RouterModule.forRoot(routes),
     BrowserAnimationsModule,
+    OverlayPanelModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

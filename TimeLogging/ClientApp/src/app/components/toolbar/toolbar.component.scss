@@ -1,0 +1,13 @@
+:host {
+  height: 80px;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: right;
+  padding: 0 30px 0 0;
+
+html:not([data-scroll='0']) & {
+  background-color: var(--surface-overlay);
+  transition: background-color .4s cubic-bezier(.05,.74,.2,.80);
+}
+}

@@ -4,7 +4,11 @@
 body {
   font-family: var(--font-family);
   padding: 0;
-  margin: 10px 5px;
+  margin: 0;
+}
+
+main.container {
+  padding: 15px 10px 0;
 }
 
 .no-border-radius-button {
