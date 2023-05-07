@@ -12,8 +12,16 @@
       [model]="options"
       (onClick)="new()"
       styleClass="mr-2 mb-2"
+      [style]="{ 'margin-right': '10px' }"
       appendTo="body"
     ></p-splitButton>
+
+    <p-selectButton
+      [options]="selectButtonOptions"
+      [(ngModel)]="selectButtonValue"
+      optionLabel="label"
+      optionValue="value"
+    ></p-selectButton>
   </ng-template>
 
   <ng-template pTemplate="right">
@@ -81,11 +89,11 @@
         <div>{{ week?.friday | date : "dd/MM/yyyy" }}</div>
       </th>
       <!--      TODO: Show week and work week-->
-      <th>
+      <th [hidden]="selectButtonValue === 2">
         Saturday
         <div>{{ week?.saturday | date : "dd/MM/yyyy" }}</div>
       </th>
-      <th>
+      <th [hidden]="selectButtonValue === 2">
         Sunday
         <div>{{ week?.sunday | date : "dd/MM/yyyy" }}</div>
       </th>
@@ -128,13 +136,13 @@
           [date]="week?.friday"
         ></app-hour-selector>
       </td>
-      <td>
+      <td [hidden]="selectButtonValue === 2">
         <app-hour-selector
           [value]="account.times"
           [date]="week?.saturday"
         ></app-hour-selector>
       </td>
-      <td>
+      <td [hidden]="selectButtonValue === 2">
         <app-hour-selector
           [value]="account.times"
           [date]="week?.sunday"

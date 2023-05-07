@@ -16,6 +16,7 @@ import { FormsModule } from '@angular/forms';
 import { HourSelectorComponent } from '../../common/hour-selector/hour-selector.component';
 import { SplitButtonModule } from 'primeng/splitbutton';
 import { CalendarModule } from 'primeng/calendar';
+import {SelectButtonModule} from "primeng/selectbutton";
 
 const routes: Routes = [
   {
@@ -45,6 +46,7 @@ const routes: Routes = [
     FormsModule,
     SplitButtonModule,
     CalendarModule,
+    SelectButtonModule,
   ],
   providers: [MessageService],
 })

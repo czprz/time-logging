@@ -35,6 +35,11 @@ export class WeekViewComponent implements OnInit {
       },
     },
   ];
+  public selectButtonOptions = [
+    { label: '5 Day', value: 2 },
+    { label: '7 Day', value: 1 },
+  ];
+  public selectButtonValue = 2;
 
   constructor(
     private readonly http: HttpClient,

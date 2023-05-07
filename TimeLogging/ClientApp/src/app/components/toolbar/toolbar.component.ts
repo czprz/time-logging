@@ -15,6 +15,7 @@ export class ToolbarComponent implements AfterViewInit {
     {
       name: 'Day',
       code: 'day',
+      disabled: true
     },
     {
       name: 'Week',
@@ -23,6 +24,7 @@ export class ToolbarComponent implements AfterViewInit {
     {
       name: 'Month',
       code: 'month',
+      disabled: true
     },
   ];
   public selectedCalendarView = { name: 'Week', code: 'week' };
