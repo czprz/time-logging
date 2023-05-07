@@ -3,3 +3,9 @@
 :root {
 
 }
+
+p-table > div {
+  border-color: var(--surface-d);
+  border-width: 0 1px 0 1px;
+  border-style: solid;
+}
