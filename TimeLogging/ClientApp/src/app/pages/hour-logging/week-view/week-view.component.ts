@@ -73,19 +73,10 @@ export class WeekViewComponent implements OnInit {
   }
 
   private test(date: Date) {
-    console.log(date);
-    const weekNo = this.getWeekNumber(date);
-    const firstDayOfWeek = new Date(
-      date.getFullYear(),
-      0,
-      1 + (weekNo - 1) * 7
-    );
-    const dayOfWeek = firstDayOfWeek.getDay();
+    const dayOfWeek = date.getDay();
 
-    const startDate = firstDayOfWeek;
-    if (dayOfWeek !== 0) {
-      startDate.setDate(firstDayOfWeek.getDate() + (7 - dayOfWeek));
-    }
+    const firstDayOfWeek = new Date(date);
+    firstDayOfWeek.setDate(date.getDate() - dayOfWeek + (dayOfWeek === 0 ? -6 : 1));
 
     const week: Week = {
       monday: null,
@@ -98,8 +89,8 @@ export class WeekViewComponent implements OnInit {
     };
 
     for (let i = 0; i < 7; i++) {
-      const date = new Date(startDate);
-      date.setDate(startDate.getDate() + i);
+      const date = new Date(firstDayOfWeek);
+      date.setDate(firstDayOfWeek.getDate() + i);
 
       switch (i) {
         case 0:
@@ -135,16 +126,5 @@ export class WeekViewComponent implements OnInit {
 
   nextWeek() {
     this.broker.set('nextWeek', true);
-  }
-
-  private getWeekNumber(date: Date): number {
-    date = new Date(
-      Date.UTC(date.getFullYear(), date.getMonth(), date.getDate())
-    );
-    date.setUTCDate(date.getUTCDate() + 4 - (date.getUTCDay() || 7));
-    const yearStart = new Date(Date.UTC(date.getUTCFullYear(), 0, 1));
-    // @ts-ignore
-    const weekNo = Math.ceil(((date - yearStart) / 86400000 + 1) / 7);
-    return weekNo;
   }
 }

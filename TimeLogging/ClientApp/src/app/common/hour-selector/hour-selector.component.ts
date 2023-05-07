@@ -28,7 +28,6 @@ export class HourSelectorComponent implements OnInit {
       return;
     }
 
-    console.log(time)
     this.actualValue = time?.time ?? '';
   }
 
