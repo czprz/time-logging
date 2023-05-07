@@ -25,6 +25,10 @@ export class ThemeService {
       .get<string>('theme')
       .pipe(takeUntil(this.destroy$))
       .subscribe((theme) => {
+        if (theme === this.theme || !theme) {
+          return;
+        }
+
         this.changeTheme(theme);
         this.configFacade.setTheme(theme);
       });

@@ -17,8 +17,19 @@
   </ng-template>
 
   <ng-template pTemplate="right">
-    <p-button icon="pi pi-arrow-circle-left" styleClass="p-button-secondary" label="Previous week" (onClick)="previousWeek()" [style]="{'margin-right': '10px'}"></p-button>
-    <p-button icon="pi pi-arrow-circle-right" iconPos="right" label="Next week" (onClick)="nextWeek()"></p-button>
+    <p-button
+      icon="pi pi-arrow-circle-left"
+      styleClass="p-button-secondary"
+      label="Previous week"
+      (onClick)="previousWeek()"
+      [style]="{ 'margin-right': '10px' }"
+    ></p-button>
+    <p-button
+      icon="pi pi-arrow-circle-right"
+      iconPos="right"
+      label="Next week"
+      (onClick)="nextWeek()"
+    ></p-button>
   </ng-template>
 </p-toolbar>
 
@@ -49,14 +60,35 @@
       <th pSortableColumn="name" style="min-width: 15rem">
         Name <p-sortIcon field="name"></p-sortIcon>
       </th>
-      <th>Monday</th>
-      <th>Tuesday</th>
-      <th>Wednesday</th>
-      <th>Thursday</th>
-      <th>Friday</th>
+      <th>
+        Monday
+        <div>{{ week?.monday | date : "dd/MM/yyyy" }}</div>
+      </th>
+      <th>
+        Tuesday
+        <div>{{ week?.tuesday | date : "dd/MM/yyyy" }}</div>
+      </th>
+      <th>
+        Wednesday
+        <div>{{ week?.wednesday | date : "dd/MM/yyyy" }}</div>
+      </th>
+      <th>
+        Thursday
+        <div>{{ week?.thursday | date : "dd/MM/yyyy" }}</div>
+      </th>
+      <th>
+        Friday
+        <div>{{ week?.friday | date : "dd/MM/yyyy" }}</div>
+      </th>
       <!--      TODO: Show week and work week-->
-      <th>Saturday</th>
-      <th>Sunday</th>
+      <th>
+        Saturday
+        <div>{{ week?.saturday | date : "dd/MM/yyyy" }}</div>
+      </th>
+      <th>
+        Sunday
+        <div>{{ week?.sunday | date : "dd/MM/yyyy" }}</div>
+      </th>
       <th></th>
     </tr>
   </ng-template>

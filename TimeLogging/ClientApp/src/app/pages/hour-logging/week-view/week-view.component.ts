@@ -42,7 +42,9 @@ export class WeekViewComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.test(18, 2023);
+    this.broker.get<Date>('date').subscribe((date) => {
+      this.test(date);
+    });
     this.http
       .get<Account[]>('/api/tracking')
       .pipe(take(1))
@@ -70,8 +72,14 @@ export class WeekViewComponent implements OnInit {
       .subscribe();
   }
 
-  private test(weekNumber: number, year: number) {
-    const firstDayOfWeek = new Date(year, 0, 1 + (weekNumber - 1) * 7);
+  private test(date: Date) {
+    console.log(date);
+    const weekNo = this.getWeekNumber(date);
+    const firstDayOfWeek = new Date(
+      date.getFullYear(),
+      0,
+      1 + (weekNo - 1) * 7
+    );
     const dayOfWeek = firstDayOfWeek.getDay();
 
     const startDate = firstDayOfWeek;
@@ -127,5 +135,16 @@ export class WeekViewComponent implements OnInit {
 
   nextWeek() {
     this.broker.set('nextWeek', true);
+  }
+
+  private getWeekNumber(date: Date): number {
+    date = new Date(
+      Date.UTC(date.getFullYear(), date.getMonth(), date.getDate())
+    );
+    date.setUTCDate(date.getUTCDate() + 4 - (date.getUTCDay() || 7));
+    const yearStart = new Date(Date.UTC(date.getUTCFullYear(), 0, 1));
+    // @ts-ignore
+    const weekNo = Math.ceil(((date - yearStart) / 86400000 + 1) / 7);
+    return weekNo;
   }
 }

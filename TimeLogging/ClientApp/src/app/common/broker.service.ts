@@ -1,13 +1,16 @@
 import { Injectable } from '@angular/core';
-import {Observable, Subject} from "rxjs";
+import { BehaviorSubject, Observable } from 'rxjs';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class BrokerService {
-  private readonly _broker: Map<string, Subject<any>> = new Map<string, Subject<any>>();
+  private readonly _broker: Map<string, BehaviorSubject<any>> = new Map<
+    string,
+    BehaviorSubject<any>
+  >();
 
-  constructor() { }
+  constructor() {}
 
   public set<T>(key: string, value: T): void {
     if (this._broker.has(key)) {
@@ -15,18 +18,23 @@ export class BrokerService {
       return;
     }
 
-    const subject = new Subject<any>();
-    this._broker.set(key, subject);
+    const obs$ = this.setMap(key);
 
-    subject.next(value);
+    obs$.next(value);
   }
 
   public get<T>(key: string): Observable<T> {
     if (!this._broker.has(key)) {
-      const subject = new Subject<any>();
-      this._broker.set(key, subject);
+      this.setMap(key);
     }
 
     return this._broker.get(key) as Observable<T>;
+  }
+
+  private setMap(key: string): BehaviorSubject<any> {
+    const subject = new BehaviorSubject<any>(null);
+    this._broker.set(key, subject);
+
+    return subject;
   }
 }

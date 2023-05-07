@@ -1,12 +1,16 @@
-import { Component } from '@angular/core';
+import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
 import { BrokerService } from '../../common/broker.service';
+import { Subject, takeUntil } from 'rxjs';
+import {Calendar} from "primeng/calendar";
 
 @Component({
   selector: 'app-toolbar',
   templateUrl: './toolbar.component.html',
   styleUrls: ['./toolbar.component.scss'],
 })
-export class ToolbarComponent {
+export class ToolbarComponent implements AfterViewInit {
+  @ViewChild('calendar') public readonly calendar!: Calendar;
+
   public calendarViews = [
     {
       name: 'Day',
@@ -22,8 +26,32 @@ export class ToolbarComponent {
     },
   ];
   public selectedCalendarView = { name: 'Week', code: 'week' };
+  public date = new Date();
 
-  constructor(private readonly broker: BrokerService) {}
+  private readonly destroy$ = new Subject<void>();
+
+  constructor(private readonly broker: BrokerService) {
+    this.onCalendarDateChange(this.date);
+  }
+
+  ngAfterViewInit(): void {
+    this.broker
+      .get('nextWeek')
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((_) => {
+        this.date = this.getNextMonday(this.date);
+        this.calendar.updateInputfield();
+        this.onCalendarDateChange(this.date);
+      });
+
+    this.broker.get('previousWeek')
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((_) => {
+        this.date = this.getPreviousMonday(this.date);
+        this.calendar.updateInputfield();
+        this.onCalendarDateChange(this.date);
+      });
+  }
 
   public changeTheme(theme: string): void {
     this.broker.set('theme', theme);
@@ -34,8 +62,28 @@ export class ToolbarComponent {
   }
 
   public onCalendarDateChange($event: any) {
-    // TODO: Get the date range from the calendar and set it in the broker
-    this.broker.set('fromDate', $event.value);
-    this.broker.set('toDate', $event.value);
+    this.broker.set('date', $event);
+  }
+
+  private getNextMonday(date: Date) {
+    const daysUntilMonday = (8 - date.getDay()) % 7;
+    if (daysUntilMonday === 0) {
+      date.setDate(this.date.getDate() + 7);
+      return date;
+    }
+
+    date.setDate(this.date.getDate() + daysUntilMonday);
+    return date;
+  }
+
+  private getPreviousMonday(date: Date) {
+    const daysUntilMonday = (8 - date.getDay()) % 7;
+    if (daysUntilMonday === 0) {
+      date.setDate(this.date.getDate() - 7);
+      return date;
+    }
+
+    date.setDate(this.date.getDate() - daysUntilMonday);
+    return date;
   }
 }

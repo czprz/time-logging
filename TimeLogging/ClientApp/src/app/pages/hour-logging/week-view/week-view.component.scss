@@ -19,6 +19,10 @@
     &:last-child {
       th {
         border-width: 1px 1px 1px 0 !important;
+
+        div {
+          font-size: 12px;
+        }
       }
     }
   }
