@@ -6,7 +6,6 @@ import { WeekViewComponent } from './week-view/week-view.component';
 import { ToolbarModule } from 'primeng/toolbar';
 import { ToastModule } from 'primeng/toast';
 import { TableModule } from 'primeng/table';
-import { ButtonModule } from 'primeng/button';
 import { RippleModule } from 'primeng/ripple';
 import { InputTextModule } from 'primeng/inputtext';
 import { HttpClientModule } from '@angular/common/http';
@@ -40,7 +39,6 @@ const routes: Routes = [
     ToolbarModule,
     ToastModule,
     TableModule,
-    ButtonModule,
     RippleModule,
     InputTextModule,
     AutoCompleteModule,

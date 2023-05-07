@@ -25,6 +25,7 @@
     "@angular/platform-server": "^15.2.9",
     "@angular/router": "^15.2.9",
     "@nguniversal/module-map-ngfactory-loader": "^8.2.6",
+    "primeicons": "^6.0.1",
     "primeng": "^15.4.1",
     "run-script-os": "^1.1.6",
     "rxjs": "~7.8.1",
