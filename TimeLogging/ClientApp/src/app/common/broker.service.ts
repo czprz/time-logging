@@ -12,6 +12,7 @@ export class BrokerService {
   public set<T>(key: string, value: T): void {
     if (this._broker.has(key)) {
       this._broker.get(key)?.next(value);
+      return;
     }
 
     const subject = new Subject<any>();

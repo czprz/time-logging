@@ -30,6 +30,16 @@
               "src/assets"
             ],
             "styles": [
+              {
+                "input": "src/assets/themes/light.scss",
+                "bundleName": "light-theme",
+                "inject": false
+              },
+              {
+                "input": "src/assets/themes/dark-purple.scss",
+                "bundleName": "dark-theme",
+                "inject": false
+              },
               "src/styles.scss"
             ],
             "scripts": []

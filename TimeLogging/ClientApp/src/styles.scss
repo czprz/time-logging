@@ -1,11 +1,14 @@
-@import "primeng/resources/themes/bootstrap4-dark-blue/theme.css";
 @import "primeicons/primeicons.css";
 @import "primeng/resources/primeng.css";
 
 body {
-  font-family: var(--font-family);
-  padding: 0;
   margin: 0;
+  overflow-x: hidden;
+  overflow-y: auto;
+  background-color: var(--surface-ground);
+  font-family: var(--font-family);
+  color: var(--text-color);
+  font-weight: 400;
 }
 
 main.container {
@@ -23,7 +26,12 @@ main.container {
 }
 
 p-table > div {
-  border-color: #3f4b5b;
+  border-color: var(--surface-d);
   border-width: 0 1px 0 1px;
   border-style: solid;
+}
+
+.theme-menu {
+  max-height: 30%;
+  overflow: scroll;
 }

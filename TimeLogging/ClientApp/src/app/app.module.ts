@@ -8,9 +8,10 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ButtonModule } from 'primeng/button';
 import { ToolbarComponent } from './components/toolbar/toolbar.component';
-import {OverlayPanelModule} from "primeng/overlaypanel";
-import {CalendarModule} from "primeng/calendar";
-import {DropdownModule} from "primeng/dropdown";
+import { OverlayPanelModule } from 'primeng/overlaypanel';
+import { CalendarModule } from 'primeng/calendar';
+import { DropdownModule } from 'primeng/dropdown';
+import { BrokerService } from './common/broker.service';
 
 const routes: Routes = [
   {
@@ -35,7 +36,7 @@ const routes: Routes = [
     CalendarModule,
     DropdownModule,
   ],
-  providers: [],
+  providers: [BrokerService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

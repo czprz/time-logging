@@ -10,12 +10,12 @@ import { RippleModule } from 'primeng/ripple';
 import { InputTextModule } from 'primeng/inputtext';
 import { HttpClientModule } from '@angular/common/http';
 import { MessageService } from 'primeng/api';
-import {CodeSelectorComponent} from "../../common/code-selector/code-selector.component";
-import {AutoCompleteModule} from "primeng/autocomplete";
-import {FormsModule} from "@angular/forms";
-import {HourSelectorComponent} from "../../common/hour-selector/hour-selector.component";
-import {SplitButtonModule} from "primeng/splitbutton";
-import {CalendarModule} from "primeng/calendar";
+import { CodeSelectorComponent } from '../../common/code-selector/code-selector.component';
+import { AutoCompleteModule } from 'primeng/autocomplete';
+import { FormsModule } from '@angular/forms';
+import { HourSelectorComponent } from '../../common/hour-selector/hour-selector.component';
+import { SplitButtonModule } from 'primeng/splitbutton';
+import { CalendarModule } from 'primeng/calendar';
 
 const routes: Routes = [
   {
