@@ -16,6 +16,7 @@ import {AutoCompleteModule} from "primeng/autocomplete";
 import {FormsModule} from "@angular/forms";
 import {HourSelectorComponent} from "../../common/hour-selector/hour-selector.component";
 import {SplitButtonModule} from "primeng/splitbutton";
+import {CalendarModule} from "primeng/calendar";
 
 const routes: Routes = [
   {
@@ -45,6 +46,7 @@ const routes: Routes = [
     AutoCompleteModule,
     FormsModule,
     SplitButtonModule,
+    CalendarModule,
   ],
   providers: [MessageService],
 })

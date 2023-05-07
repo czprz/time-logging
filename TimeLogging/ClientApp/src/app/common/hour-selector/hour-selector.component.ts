@@ -19,9 +19,11 @@ export class HourSelectorComponent implements OnInit {
   public actualValue = '';
 
   ngOnInit(): void {
+    if (!this.value) {
+      return;
+    }
+
     const time = this.value.find(x => this.isWithinSameDay(x.date));
-    console.log(this.date);
-    console.log(this.value)
     if (!time) {
       return;
     }

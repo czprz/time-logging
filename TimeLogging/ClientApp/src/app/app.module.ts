@@ -9,6 +9,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ButtonModule } from 'primeng/button';
 import { ToolbarComponent } from './components/toolbar/toolbar.component';
 import {OverlayPanelModule} from "primeng/overlaypanel";
+import {CalendarModule} from "primeng/calendar";
+import {DropdownModule} from "primeng/dropdown";
 
 const routes: Routes = [
   {
@@ -30,6 +32,8 @@ const routes: Routes = [
     RouterModule.forRoot(routes),
     BrowserAnimationsModule,
     OverlayPanelModule,
+    CalendarModule,
+    DropdownModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

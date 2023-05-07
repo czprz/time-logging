@@ -16,3 +16,13 @@ main.container {
     border-radius: 0 !important;
   }
 }
+
+.p-datatable-header {
+  border-top: 0 !important;
+}
+
+p-table > div {
+  border-color: #3f4b5b;
+  border-width: 0 1px 0 1px;
+  border-style: solid;
+}
