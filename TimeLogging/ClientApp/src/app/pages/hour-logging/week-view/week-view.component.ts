@@ -40,6 +40,25 @@ export class WeekViewComponent implements OnInit {
     { label: '7 Day', value: 1 },
   ];
   public selectButtonValue = 2;
+  public templateOptions = [
+    {
+      label: 'Save Template',
+      icon: 'pi pi-save',
+      command: () => {
+        this.saveTemplate();
+      },
+    },
+    {
+      separator: true
+    },
+    {
+      label: 'Load Template 1',
+      icon: 'pi pi-download',
+      command: () => {
+        this.loadTemplate(1);
+      }
+    }
+  ];
 
   constructor(
     private readonly http: HttpClient,
@@ -72,7 +91,7 @@ export class WeekViewComponent implements OnInit {
   send() {
     // TODO: Should send to driver
     this.http
-      .post('/api/tracking/send', this.accounts)
+      .post('/api/driver', this.accounts)
       .pipe(take(1))
       .subscribe();
   }
@@ -131,5 +150,13 @@ export class WeekViewComponent implements OnInit {
 
   nextWeek() {
     this.broker.set('nextWeek', true);
+  }
+
+  private saveTemplate() {
+    this.http.post('/api/tracking/template', this.accounts).pipe(take(1)).subscribe();
+  }
+
+  public loadTemplate(number: number) {
+
   }
 }
