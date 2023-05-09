@@ -25,6 +25,48 @@
       ]
     }
   ],
+  "templates": [
+    {
+      "id": "514f9b62-eb43-40f6-9f1c-b4de965d0ed3",
+      "name": "Template1",
+      "items": [
+        {
+          "id": "514f9b62-eb43-40f6-9f1c-b4de965d0ed3",
+          "parentId": "514f9b62-eb43-40f6-9f1c-b4de965d0ed3",
+          "code": "514f9b62-eb43-40f6-9f1c-b4de965d0ed3",
+          "date": "2023-04-30",
+          "time": "04:05:00"
+        },
+        {
+          "id": "514f9b62-eb43-40f6-9f1c-b4de965d0ed3",
+          "parentId": "514f9b62-eb43-40f6-9f1c-b4de965d0ed3",
+          "code": "514f9b62-eb43-40f6-9f1c-b4de965d0ed3",
+          "date": "2023-05-01",
+          "time": "04:05:00"
+        }
+      ]
+    },
+    {
+      "id": "514f9b62-eb43-40f6-9f1c-b4de965d0ed3",
+      "name": "Template2",
+      "items": [
+        {
+          "id": "514f9b62-eb43-40f6-9f1c-b4de965d0ed3",
+          "parentId": "514f9b62-eb43-40f6-9f1c-b4de965d0ed3",
+          "code": "514f9b62-eb43-40f6-9f1c-b4de965d0ed3",
+          "date": "2023-04-30",
+          "time": "04:05:00"
+        },
+        {
+          "id": "514f9b62-eb43-40f6-9f1c-b4de965d0ed3",
+          "parentId": "514f9b62-eb43-40f6-9f1c-b4de965d0ed3",
+          "code": "514f9b62-eb43-40f6-9f1c-b4de965d0ed3",
+          "date": "2023-05-01",
+          "time": "04:05:00"
+        }
+      ]
+    }
+  ],
   "codes": [
     {
       "id": "514f9b62-eb43-40f6-9f1c-b4de965d0ed3",

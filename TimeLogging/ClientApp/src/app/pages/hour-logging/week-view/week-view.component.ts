@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { take } from 'rxjs';
 import { Account, Week } from '../../../common/view';
 import { BrokerService } from '../../../common/broker.service';
+import { TemplateServiceService } from '../../../common/template-service.service';
 
 @Component({
   selector: 'app-week-view',
@@ -12,6 +13,7 @@ import { BrokerService } from '../../../common/broker.service';
 export class WeekViewComponent implements OnInit {
   public accounts: Account[] = [];
   public week: Week | null = null;
+  public lastTemplate = this.templateService.lastTemplate;
   public options = [
     {
       label: 'New',
@@ -49,19 +51,13 @@ export class WeekViewComponent implements OnInit {
       },
     },
     {
-      separator: true
+      separator: true,
     },
-    {
-      label: 'Load Template 1',
-      icon: 'pi pi-download',
-      command: () => {
-        this.loadTemplate(1);
-      }
-    }
   ];
 
   constructor(
     private readonly http: HttpClient,
+    private readonly templateService: TemplateServiceService,
     private readonly broker: BrokerService
   ) {}
 
@@ -74,6 +70,24 @@ export class WeekViewComponent implements OnInit {
       .pipe(take(1))
       // TODO: Query for the selected week
       .subscribe((accounts) => (this.accounts = accounts));
+    this.templateService
+      .getTemplates()
+      .pipe(take(1))
+      .subscribe((templates) => {
+        for (const template of templates) {
+          if (this.lastTemplate == null) {
+            this.lastTemplate = template;
+          }
+
+          this.templateOptions.push({
+            label: template.name,
+            icon: 'pi pi-download',
+            command: () => {
+              this.loadTemplate(template.id);
+            },
+          });
+        }
+      });
   }
 
   remove(account: Account) {
@@ -90,17 +104,16 @@ export class WeekViewComponent implements OnInit {
 
   send() {
     // TODO: Should send to driver
-    this.http
-      .post('/api/driver', this.accounts)
-      .pipe(take(1))
-      .subscribe();
+    this.http.post('/api/driver', this.accounts).pipe(take(1)).subscribe();
   }
 
   private test(date: Date) {
     const dayOfWeek = date.getDay();
 
     const firstDayOfWeek = new Date(date);
-    firstDayOfWeek.setDate(date.getDate() - dayOfWeek + (dayOfWeek === 0 ? -6 : 1));
+    firstDayOfWeek.setDate(
+      date.getDate() - dayOfWeek + (dayOfWeek === 0 ? -6 : 1)
+    );
 
     const week: Week = {
       monday: null,
@@ -153,10 +166,16 @@ export class WeekViewComponent implements OnInit {
   }
 
   private saveTemplate() {
-    this.http.post('/api/tracking/template', this.accounts).pipe(take(1)).subscribe();
+    this.http
+      .post('/api/tracking/template', this.accounts)
+      .pipe(take(1))
+      .subscribe();
   }
 
-  public loadTemplate(number: number) {
-
+  public loadTemplate(id: string) {
+    this.templateService
+      .getItems(id)
+      .pipe(take(1))
+      .subscribe((items) => {});
   }
 }

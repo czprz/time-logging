@@ -24,7 +24,7 @@
       [style]="{ 'margin-right': '10px'}"
     ></p-selectButton>
 
-    <p-splitButton label="Template 1" icon="pi pi-plus" (onClick)="loadTemplate(1)" [model]="templateOptions"></p-splitButton>
+    <p-splitButton label="{{lastTemplate!.name}}" icon="pi pi-plus" (onClick)="loadTemplate(lastTemplate!.name)" [model]="templateOptions"></p-splitButton>
   </ng-template>
 
   <ng-template pTemplate="right">
