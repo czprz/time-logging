@@ -2,11 +2,11 @@
 
 namespace TimeLogging.Endpoints.Tracking;
 
-public static class GetTracking
+public static class GetRecords
 {
-    public static void MapTrackingLatestEndpoints(this WebApplication app, ApiVersionSet apiVersionSet)
+    public static void MapRecordEndpoints(this WebApplication app, ApiVersionSet apiVersionSet)
     {
-        app.MapGet("tracking", GetLatest)
+        app.MapGet("records", GetLatest)
             .WithApiVersionSet(apiVersionSet)
             .MapToApiVersion(1)
             .CacheOutput("expires5s");
