@@ -12,7 +12,7 @@ public static class CodeEndpoints
             .CacheOutput("expires5s");
     }
 
-    private static Task Get(HttpContext context)
+    private static Task<IResult> Get(HttpContext context)
     {
         throw new NotImplementedException();
     }
