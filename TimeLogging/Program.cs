@@ -2,8 +2,8 @@ using Asp.Versioning;
 using Asp.Versioning.Conventions;
 using Microsoft.Extensions.Options;
 using Swashbuckle.AspNetCore.SwaggerGen;
-using TimeLogging.Endpoints.Tracking;
-using VersionCheckApi.OpenApi;
+using TimeLogging.Endpoints;
+using TimeLogging.OpenApi;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -56,7 +56,10 @@ var versionSet = app.NewApiVersionSet()
     .HasApiVersion(2, 0)
     .Build();
 
-app.MapRecordEndpoints(versionSet);
+app.AddRecordEndpoints(versionSet);
+app.AddProductEndpoints(versionSet);
+app.AddCodeEndpoints(versionSet);
+app.AddTemplateEndpoints(versionSet);
 
 if (app.Environment.IsDevelopment())
 {
