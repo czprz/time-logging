@@ -1,0 +1,27 @@
+syntax = "proto3";
+
+option csharp_namespace = "gRPC.Code";
+
+package time_logging.code;
+
+service CodeService {
+  rpc get (CodeRequest) returns (CodeList) {}
+  rpc create (Code) returns (Code) {}
+  rpc update (Code) returns (Code) {}
+  rpc delete (CodeRequest) returns (Code) {}
+}
+
+message CodeRequest {
+  string id = 1;
+}
+
+message CodeList {
+  repeated Code records = 1;
+}
+
+message Code {
+  string id = 1;
+  string productId = 2;
+  string name = 3;
+  string description = 4;
+}

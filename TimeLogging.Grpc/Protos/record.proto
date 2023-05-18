@@ -1,0 +1,30 @@
+syntax = "proto3";
+
+import "google/protobuf/timestamp.proto";
+import "google/protobuf/duration.proto";
+
+option csharp_namespace = "gRPC.Record";
+
+package time_logging.template;
+
+service RecordService {
+  rpc get (RecordRequest) returns (RecordList) {}
+  rpc create (Record) returns (Record) {}
+  rpc update (Record) returns (Record) {}
+  rpc delete (RecordRequest) returns (Record) {}
+}
+
+message RecordRequest {
+    string id = 1;
+}
+
+message RecordList {
+  repeated Record records = 1;
+}
+
+message Record {
+  string id = 1;
+  string codeId = 2;
+  google.protobuf.Timestamp date = 3;
+  google.protobuf.Duration duration = 4;
+}

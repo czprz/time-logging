@@ -1,0 +1,45 @@
+syntax = "proto3";
+
+option csharp_namespace = "gRPC.Template";
+
+package time_logging.template;
+
+service TemplateService {
+  rpc get (TemplateRequest) returns (TemplateList);
+  rpc create (Template) returns (Template);
+  rpc update (Template) returns (Template);
+  rpc delete (TemplateRequest) returns (Template);
+}
+
+message TemplateRequest {
+  string id = 1;
+}
+
+message TemplateList {
+  repeated Template templates = 1;
+}
+
+message Template {
+  string id = 1;
+  string name = 2;
+  string description = 3;
+  repeated TemplateItem items = 4;
+}
+
+message TemplateItem {
+  string id = 1;
+  string template_id = 2;
+  string code_id = 3;
+  Day day = 4;
+  int64 time = 5;
+}
+
+enum Day {
+  MONDAY = 0;
+  TUESDAY = 1;
+  WEDNESDAY = 2;
+  THURSDAY = 3;
+  FRIDAY = 4;
+  SATURDAY = 5;
+  SUNDAY = 6;
+}
