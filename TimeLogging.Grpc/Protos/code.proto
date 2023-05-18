@@ -6,9 +6,6 @@ package time_logging.code;
 
 service CodeService {
   rpc get (CodeRequest) returns (CodeList) {}
-  rpc create (Code) returns (Code) {}
-  rpc update (Code) returns (Code) {}
-  rpc delete (CodeRequest) returns (Code) {}
 }
 
 message CodeRequest {

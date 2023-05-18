@@ -1,4 +1,3 @@
-using Grpc.Net.Client;
 using gRPC.Template;
 
 namespace TimeLogging.Grpc.Client;
