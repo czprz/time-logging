@@ -54,7 +54,7 @@ public static class RecordEndpoints
     private static async Task<IResult> CreateRecord(IRecordService recordService, Record record)
     {
         var createdRecord = await recordService.CreateRecordAsync(record);
-        return Results.Created($"/records/{createdRecord.Id}", createdRecord);
+        return createdRecord is null ? Results.BadRequest() : Results.Created($"/records/{createdRecord.Id}", createdRecord);
     }
 
     private static async Task<IResult> UpdateRecord(IRecordService recordService, Record record)

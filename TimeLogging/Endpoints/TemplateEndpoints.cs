@@ -42,7 +42,7 @@ public static class TemplateEndpoints
     private static async Task<IResult> CreateTemplate(ITemplateService service, Template template)
     {
         var createdTemplate = await service.CreateTemplateAsync(template);
-        return Results.Created($"/templates/{createdTemplate.Id}", createdTemplate);
+        return createdTemplate is null ? Results.BadRequest() : Results.Created($"/templates/{createdTemplate.Id}", createdTemplate);
     }
 
     private static async Task<IResult> UpdateTemplate(ITemplateService service, Template template)
