@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { View } from '../../common/view';
-import {take} from "rxjs";
 
 @Component({
   selector: 'app-hour-logging',

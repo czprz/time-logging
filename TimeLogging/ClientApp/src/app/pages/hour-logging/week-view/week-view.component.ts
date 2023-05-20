@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { take } from 'rxjs';
+import { Subject, take, takeUntil } from 'rxjs';
 import { Account, Week } from '../../../common/view';
 import { BrokerService } from '../../../common/broker.service';
-import { TemplateServiceService } from '../../../common/template-service.service';
+import { TemplateService } from '../../../common/template.service';
 
 @Component({
   selector: 'app-week-view',
@@ -55,9 +55,11 @@ export class WeekViewComponent implements OnInit {
     },
   ];
 
+  private readonly destroy$ = new Subject<void>();
+
   constructor(
     private readonly http: HttpClient,
-    private readonly templateService: TemplateServiceService,
+    private readonly templateService: TemplateService,
     private readonly broker: BrokerService
   ) {}
 
@@ -65,29 +67,14 @@ export class WeekViewComponent implements OnInit {
     this.broker.get<Date>('date').subscribe((date) => {
       this.test(date);
     });
+
+    this.listTemplates();
+
     this.http
       .get<Account[]>('/api/records')
       .pipe(take(1))
       // TODO: Query for the selected week
       .subscribe((accounts) => (this.accounts = accounts));
-    this.templateService
-      .getTemplates()
-      .pipe(take(1))
-      .subscribe((templates) => {
-        for (const template of templates) {
-          if (this.lastTemplate == null) {
-            this.lastTemplate = template;
-          }
-
-          this.templateOptions.push({
-            label: template.name,
-            icon: 'pi pi-download',
-            command: () => {
-              this.loadTemplate(template.id);
-            },
-          });
-        }
-      });
   }
 
   remove(account: Account) {
@@ -166,16 +153,27 @@ export class WeekViewComponent implements OnInit {
   }
 
   private saveTemplate() {
-    this.http
-      .post('/api/tracking/template', this.accounts)
-      .pipe(take(1))
-      .subscribe();
+    this.templateService.saveTemplate(this.accounts);
+  }
+
+  public listTemplates() {
+    this.templateService
+      .getTemplates()
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((templates) => {
+        for (const template of templates) {
+          this.templateOptions.push({
+            label: template.name,
+            icon: 'pi pi-download',
+            command: () => {
+              this.loadTemplate(template.id);
+            },
+          });
+        }
+      });
   }
 
   public loadTemplate(id: string) {
-    this.templateService
-      .getItems(id)
-      .pipe(take(1))
-      .subscribe((items) => {});
+    return this.templateService.getTemplateItems(id);
   }
 }
