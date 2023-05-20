@@ -3,9 +3,23 @@ using Asp.Versioning.Conventions;
 using Microsoft.Extensions.Options;
 using Swashbuckle.AspNetCore.SwaggerGen;
 using TimeLogging.Endpoints;
+using TimeLogging.Maps;
 using TimeLogging.OpenApi;
+using TimeLogging.Services;
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddTransient<IRecordMap, RecordMap>();
+builder.Services.AddTransient<IRecordService, RecordService>();
+
+builder.Services.AddTransient<ICodeMap, CodeMap>();
+builder.Services.AddTransient<ICodeService, CodeService>();
+
+builder.Services.AddTransient<IProductMap, ProductMap>();
+builder.Services.AddTransient<IProductService, ProductService>();
+
+builder.Services.AddTransient<ITemplateMap, TemplateMap>();
+builder.Services.AddTransient<ITemplateService, TemplateService>();
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddTransient<IConfigureOptions<SwaggerGenOptions>, ConfigureSwaggerOptions>();
@@ -31,6 +45,11 @@ builder.Services.AddOutputCache(options =>
     options.AddPolicy("expires5s", x => x.Expire(TimeSpan.FromSeconds(5)));
 });
 
+builder.Services.AddOutputCache(options =>
+{
+    options.AddPolicy("expires5s", x => x.Expire(TimeSpan.FromSeconds(5)));
+});
+
 var app = builder.Build();
 
 if (!app.Environment.IsDevelopment())
@@ -38,14 +57,7 @@ if (!app.Environment.IsDevelopment())
     app.UseHsts();
 }
 
-app.UseHttpsRedirection();
 app.UseStaticFiles();
-app.UseRouting();
-
-builder.Services.AddOutputCache(options =>
-{
-    options.AddPolicy("expires5s", x => x.Expire(TimeSpan.FromSeconds(5)));
-});
 
 app.MapFallbackToFile("index.html");
 

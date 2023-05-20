@@ -13,7 +13,7 @@ message CodeRequest {
 }
 
 message CodeList {
-  repeated Code records = 1;
+  repeated Code codes = 1;
 }
 
 message Code {
