@@ -1,3 +1,4 @@
+using Google.Protobuf.WellKnownTypes;
 using gRPC.Record;
 
 namespace TimeLogging.Grpc.Client;
@@ -26,7 +27,15 @@ public class Records : IRecords
 
         return response;
     }
-    
+
+    public async Task<RecordList> GetRecordAsync(DateTime from, DateTime to)
+    {
+        var request = new RecordRequest { From = from.ToTimestamp(), To = to.ToTimestamp() };
+        var response = await _client.getAsync(request);
+        
+        return response;
+    }
+
     public async Task<Record> CreateRecordAsync(Record record)
     {
         var response = await _client.createAsync(record);
