@@ -9,7 +9,7 @@ public class ProductService : gRPC.Product.ProductService.ProductServiceBase
     {
         return Task.FromResult(new ProductList
         {
-            Records =
+            Products =
             {
                 new[]
                 {

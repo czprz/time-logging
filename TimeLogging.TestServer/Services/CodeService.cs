@@ -16,7 +16,7 @@ public class CodeService : gRPC.Code.CodeService.CodeServiceBase
     {
         return Task.FromResult(new CodeList
         {
-            Records =
+            Codes =
             {
                 new[]
                 {

@@ -1,3 +1,4 @@
+using Google.Protobuf.WellKnownTypes;
 using Grpc.Core;
 using gRPC.Template;
 
@@ -26,7 +27,7 @@ public class TemplateService : gRPC.Template.TemplateService.TemplateServiceBase
                                 {
                                     Id = Guid.NewGuid().ToString(),
                                     Day = Day.Friday,
-                                    Time = 1000,
+                                    Duration = new Duration { Seconds = 60 * 60 * 8 },
                                     CodeId = Guid.NewGuid().ToString(),
                                     TemplateId = Guid.NewGuid().ToString(),
                                 }
