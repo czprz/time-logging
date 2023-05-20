@@ -14,12 +14,6 @@ public class RecordService : IRecordService
         _records = records;
         _recordMap = recordMap;
     }
-    
-    public async Task<IList<Record>> GetRecordsAsync()
-    {
-        var records = await _records.GetRecordAsync();
-        return records.Records.Select(x => _recordMap.Map(x)!).ToList();
-    }
 
     public async Task<Record?> GetRecordAsync(Guid id)
     {
@@ -29,9 +23,16 @@ public class RecordService : IRecordService
         return _recordMap.Map(record);
     }
 
-    public Task<IList<Record>> GetRecordsAsync(DateTime from, DateTime to)
+    public async Task<IList<Record>> GetRecordsAsync()
     {
-        throw new NotImplementedException();
+        var records = await _records.GetRecordAsync();
+        return records.Records.Select(x => _recordMap.Map(x)!).ToList();
+    }
+
+    public async Task<IList<Record>> GetRecordsAsync(DateTime from, DateTime to)
+    {
+        var records = await _records.GetRecordAsync(from, to);
+        return records.Records.Select(x => _recordMap.Map(x)!).ToList();
     }
 
     public async Task<Record?> CreateRecordAsync(Record record)

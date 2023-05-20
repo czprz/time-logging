@@ -15,7 +15,9 @@ service RecordService {
 }
 
 message RecordRequest {
-    string id = 1;
+  string id = 1;
+  google.protobuf.Timestamp from = 2;
+  google.protobuf.Timestamp to = 3;
 }
 
 message RecordList {
