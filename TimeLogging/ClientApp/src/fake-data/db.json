@@ -61,6 +61,12 @@
       "productId": "514f9b62-eb43-40f6-9f1c-b4de965d0ed3",
       "name": "Feature1",
       "description": "This is a description of the feature"
+    },
+    {
+      "id": "514f9b62-eb43-40f6-9f1c-b4de965d0ed3",
+      "productId": "514f9b62-eb43-40f6-9f1c-b4de965d0ed3",
+      "name": "Maintenance1",
+      "description": "This is a description of the maintenance"
     }
   ],
   "records": [

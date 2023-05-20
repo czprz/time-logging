@@ -66,7 +66,7 @@ export class WeekViewComponent implements OnInit {
       this.test(date);
     });
     this.http
-      .get<Account[]>('/api/tracking')
+      .get<Account[]>('/api/records')
       .pipe(take(1))
       // TODO: Query for the selected week
       .subscribe((accounts) => (this.accounts = accounts));
