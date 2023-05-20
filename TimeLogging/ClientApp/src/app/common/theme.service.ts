@@ -22,7 +22,7 @@ export class ThemeService {
     this.changeTheme(theme);
 
     this.broker
-      .get<string>('theme')
+      .get$<string>('theme')
       .pipe(takeUntil(this.destroy$))
       .subscribe((theme) => {
         if (theme === this.theme || !theme) {

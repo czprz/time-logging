@@ -4,6 +4,7 @@ import { Subject, take, takeUntil } from 'rxjs';
 import { Account, Week } from '../../../common/view';
 import { BrokerService } from '../../../common/broker.service';
 import { TemplateService } from '../../../common/template.service';
+import {RecordsService} from "../../../common/records.service";
 
 @Component({
   selector: 'app-week-view',
@@ -60,36 +61,35 @@ export class WeekViewComponent implements OnInit {
   constructor(
     private readonly http: HttpClient,
     private readonly templateService: TemplateService,
+    private readonly recordsService: RecordsService,
     private readonly broker: BrokerService
   ) {}
 
   ngOnInit(): void {
-    this.broker.get<Date>('date').subscribe((date) => {
+    this.broker.get$<Date>('date').subscribe((date) => {
       this.test(date);
     });
 
     this.listTemplates();
 
-    this.http
-      .get<Account[]>('/api/records')
-      .pipe(take(1))
-      // TODO: Query for the selected week
-      .subscribe((accounts) => (this.accounts = accounts));
+    this.recordsService.get().subscribe((accounts) => {
+      this.accounts = accounts;
+    });
   }
 
-  remove(account: Account) {
+  public remove(account: Account) {
     this.accounts = this.accounts.filter((a) => a !== account);
   }
 
-  new() {
+  public new() {
     this.accounts = [...this.accounts, { id: '', code: '', times: [] }];
   }
 
-  save() {
-    this.http.post('/api/tracking', this.accounts).pipe(take(1)).subscribe();
+  public save() {
+    this.http.post('/api/records', this.accounts).pipe(take(1)).subscribe();
   }
 
-  send() {
+  public send() {
     // TODO: Should send to driver
     this.http.post('/api/driver', this.accounts).pipe(take(1)).subscribe();
   }
@@ -145,11 +145,19 @@ export class WeekViewComponent implements OnInit {
   }
 
   previousWeek() {
+    // TODO: Load previous records and add spinner
+    this.loadRecords();
     this.broker.set('previousWeek', true);
   }
 
   nextWeek() {
+    // TODO: Load next records and add spinner
+    this.loadRecords();
     this.broker.set('nextWeek', true);
+  }
+
+  private loadRecords() {
+    this.recordsService.get().pipe(take(1)).subscribe((accounts) => { this.accounts = accounts; });
   }
 
   private saveTemplate() {

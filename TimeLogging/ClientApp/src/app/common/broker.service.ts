@@ -23,7 +23,23 @@ export class BrokerService {
     obs$.next(value);
   }
 
-  public get<T>(key: string): Observable<T> {
+  public getOrDefault<T>(key: string, defaultValue: T): T {
+    if (!this._broker.has(key)) {
+      this.setMap(key);
+    }
+
+    return this._broker.get(key)?.value ?? defaultValue;
+  }
+
+  public get<T>(key: string): T {
+    if (!this._broker.has(key)) {
+      this.setMap(key);
+    }
+
+    return this._broker.get(key)?.value as T;
+  }
+
+  public get$<T>(key: string): Observable<T> {
     if (!this._broker.has(key)) {
       this.setMap(key);
     }

@@ -1,7 +1,7 @@
-import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
+import { AfterViewInit, Component, ViewChild } from '@angular/core';
 import { BrokerService } from '../../common/broker.service';
 import { Subject, takeUntil } from 'rxjs';
-import {Calendar} from "primeng/calendar";
+import { Calendar } from 'primeng/calendar';
 
 @Component({
   selector: 'app-toolbar',
@@ -15,7 +15,7 @@ export class ToolbarComponent implements AfterViewInit {
     {
       name: 'Day',
       code: 'day',
-      disabled: true
+      disabled: true,
     },
     {
       name: 'Week',
@@ -24,7 +24,7 @@ export class ToolbarComponent implements AfterViewInit {
     {
       name: 'Month',
       code: 'month',
-      disabled: true
+      disabled: true,
     },
   ];
   public selectedCalendarView = { name: 'Week', code: 'week' };
@@ -34,11 +34,12 @@ export class ToolbarComponent implements AfterViewInit {
 
   constructor(private readonly broker: BrokerService) {
     this.onCalendarDateChange(this.date);
+    this.broker.set('calendarView', 'week');
   }
 
   ngAfterViewInit(): void {
     this.broker
-      .get('nextWeek')
+      .get$('nextWeek')
       .pipe(takeUntil(this.destroy$))
       .subscribe((_) => {
         this.date = this.getNextMonday(this.date);
@@ -46,7 +47,8 @@ export class ToolbarComponent implements AfterViewInit {
         this.onCalendarDateChange(this.date);
       });
 
-    this.broker.get('previousWeek')
+    this.broker
+      .get$('previousWeek')
       .pipe(takeUntil(this.destroy$))
       .subscribe((_) => {
         this.date = this.getPreviousMonday(this.date);
