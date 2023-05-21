@@ -12,6 +12,7 @@ import { OverlayPanelModule } from 'primeng/overlaypanel';
 import { CalendarModule } from 'primeng/calendar';
 import { DropdownModule } from 'primeng/dropdown';
 import { BrokerService } from './common/broker.service';
+import { DateSelectorService } from './common/date-selector.service';
 
 const routes: Routes = [
   {
@@ -36,7 +37,7 @@ const routes: Routes = [
     CalendarModule,
     DropdownModule,
   ],
-  providers: [BrokerService],
+  providers: [BrokerService, DateSelectorService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

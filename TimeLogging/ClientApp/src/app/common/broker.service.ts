@@ -10,8 +10,6 @@ export class BrokerService {
     BehaviorSubject<any>
   >();
 
-  constructor() {}
-
   public set<T>(key: string, value: T): void {
     if (this._broker.has(key)) {
       this._broker.get(key)?.next(value);
@@ -42,6 +40,15 @@ export class BrokerService {
   public get$<T>(key: string): Observable<T> {
     if (!this._broker.has(key)) {
       this.setMap(key);
+    }
+
+    return this._broker.get(key) as Observable<T>;
+  }
+
+  public getOrDefault$<T>(key: string, defaultValue: T): Observable<T> {
+    if (!this._broker.has(key)) {
+      const obs$ = this.setMap(key);
+      obs$.next(defaultValue);
     }
 
     return this._broker.get(key) as Observable<T>;

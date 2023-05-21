@@ -16,7 +16,7 @@ export class RecordsService {
   public get() {
     const dates = this.dateSelection();
     return this.http.get<Account[]>(
-      `/api/records?from=${dates.from}&to=${dates.to}`
+      `/api/records?from=${dates.from.toISOString()}&to=${dates.to.toISOString()}`
     );
   }
 
@@ -32,7 +32,7 @@ export class RecordsService {
       case 'month':
         return { from: date, to: date };
       case 'week':
-        return { from: date, to: DateHelper.getNextMonday(date) };
+        return { from: DateHelper.getFirstDayOfWeek(date), to: DateHelper.getLastDayOfWeek(date) };
       case 'day':
         return { from: date, to: date };
       default:

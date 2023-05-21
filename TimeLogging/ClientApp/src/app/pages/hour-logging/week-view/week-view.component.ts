@@ -5,6 +5,8 @@ import { Account, Week } from '../../../common/view';
 import { BrokerService } from '../../../common/broker.service';
 import { TemplateService } from '../../../common/template.service';
 import {RecordsService} from "../../../common/records.service";
+import {DateSelectorService} from "../../../common/date-selector.service";
+import {DateHelper} from "../../../common/date.helper";
 
 @Component({
   selector: 'app-week-view',
@@ -62,7 +64,8 @@ export class WeekViewComponent implements OnInit {
     private readonly http: HttpClient,
     private readonly templateService: TemplateService,
     private readonly recordsService: RecordsService,
-    private readonly broker: BrokerService
+    private readonly broker: BrokerService,
+    private readonly dateSelector: DateSelectorService
   ) {}
 
   ngOnInit(): void {
@@ -95,12 +98,7 @@ export class WeekViewComponent implements OnInit {
   }
 
   private test(date: Date) {
-    const dayOfWeek = date.getDay();
-
-    const firstDayOfWeek = new Date(date);
-    firstDayOfWeek.setDate(
-      date.getDate() - dayOfWeek + (dayOfWeek === 0 ? -6 : 1)
-    );
+    const firstDayOfWeek = DateHelper.getFirstDayOfWeek(date);
 
     const week: Week = {
       monday: null,
@@ -146,14 +144,14 @@ export class WeekViewComponent implements OnInit {
 
   previousWeek() {
     // TODO: Load previous records and add spinner
+    this.dateSelector.previousWeek();
     this.loadRecords();
-    this.broker.set('previousWeek', true);
   }
 
   nextWeek() {
+    this.dateSelector.nextWeek();
     // TODO: Load next records and add spinner
     this.loadRecords();
-    this.broker.set('nextWeek', true);
   }
 
   private loadRecords() {

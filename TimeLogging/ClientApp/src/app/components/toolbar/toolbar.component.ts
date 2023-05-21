@@ -2,7 +2,6 @@ import { AfterViewInit, Component, ViewChild } from '@angular/core';
 import { BrokerService } from '../../common/broker.service';
 import { Subject, takeUntil } from 'rxjs';
 import { Calendar } from 'primeng/calendar';
-import {DateHelper} from "../../common/date.helper";
 
 @Component({
   selector: 'app-toolbar',
@@ -29,33 +28,20 @@ export class ToolbarComponent implements AfterViewInit {
     },
   ];
   public selectedCalendarView = { name: 'Week', code: 'week' };
-  // TODO: Remove hours, minutes, seconds from date
-  public date = new Date();
+  public date$ = this.broker.get$<Date>('date');
 
   private readonly destroy$ = new Subject<void>();
 
   constructor(private readonly broker: BrokerService) {
-    this.onCalendarDateChange(this.date);
     this.broker.set('calendarView', 'week');
   }
 
   ngAfterViewInit(): void {
     this.broker
-      .get$('nextWeek')
+      .get$<Date>('date')
       .pipe(takeUntil(this.destroy$))
-      .subscribe((_) => {
-        this.date = DateHelper.getNextMonday(this.date);
+      .subscribe(() => {
         this.calendar.updateInputfield();
-        this.onCalendarDateChange(this.date);
-      });
-
-    this.broker
-      .get$('previousWeek')
-      .pipe(takeUntil(this.destroy$))
-      .subscribe((_) => {
-        this.date = DateHelper.getPreviousMonday(this.date);
-        this.calendar.updateInputfield();
-        this.onCalendarDateChange(this.date);
       });
   }
 
@@ -68,6 +54,6 @@ export class ToolbarComponent implements AfterViewInit {
   }
 
   public onCalendarDateChange($event: any) {
-    this.broker.set('date', $event);
+    this.broker.set('calendar-change', $event);
   }
 }
