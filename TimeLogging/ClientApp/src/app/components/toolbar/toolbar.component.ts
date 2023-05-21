@@ -2,6 +2,7 @@ import { AfterViewInit, Component, ViewChild } from '@angular/core';
 import { BrokerService } from '../../common/broker.service';
 import { Subject, takeUntil } from 'rxjs';
 import { Calendar } from 'primeng/calendar';
+import {DateHelper} from "../../common/date.helper";
 
 @Component({
   selector: 'app-toolbar',
@@ -28,6 +29,7 @@ export class ToolbarComponent implements AfterViewInit {
     },
   ];
   public selectedCalendarView = { name: 'Week', code: 'week' };
+  // TODO: Remove hours, minutes, seconds from date
   public date = new Date();
 
   private readonly destroy$ = new Subject<void>();
@@ -42,7 +44,7 @@ export class ToolbarComponent implements AfterViewInit {
       .get$('nextWeek')
       .pipe(takeUntil(this.destroy$))
       .subscribe((_) => {
-        this.date = this.getNextMonday(this.date);
+        this.date = DateHelper.getNextMonday(this.date);
         this.calendar.updateInputfield();
         this.onCalendarDateChange(this.date);
       });
@@ -51,7 +53,7 @@ export class ToolbarComponent implements AfterViewInit {
       .get$('previousWeek')
       .pipe(takeUntil(this.destroy$))
       .subscribe((_) => {
-        this.date = this.getPreviousMonday(this.date);
+        this.date = DateHelper.getPreviousMonday(this.date);
         this.calendar.updateInputfield();
         this.onCalendarDateChange(this.date);
       });
@@ -67,27 +69,5 @@ export class ToolbarComponent implements AfterViewInit {
 
   public onCalendarDateChange($event: any) {
     this.broker.set('date', $event);
-  }
-
-  private getNextMonday(date: Date) {
-    const daysUntilMonday = (8 - date.getDay()) % 7;
-    if (daysUntilMonday === 0) {
-      date.setDate(this.date.getDate() + 7);
-      return date;
-    }
-
-    date.setDate(this.date.getDate() + daysUntilMonday);
-    return date;
-  }
-
-  private getPreviousMonday(date: Date) {
-    const daysUntilMonday = (8 - date.getDay()) % 7;
-    if (daysUntilMonday === 0) {
-      date.setDate(this.date.getDate() - 7);
-      return date;
-    }
-
-    date.setDate(this.date.getDate() - daysUntilMonday);
-    return date;
   }
 }
