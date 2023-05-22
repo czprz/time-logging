@@ -16,7 +16,6 @@ export class HourSelectorComponent implements OnInit {
   public actualValue = '';
 
   ngOnInit(): void {
-    console.log(this.record);
     if (!this.record) {
       return;
     }
@@ -45,7 +44,6 @@ export class HourSelectorComponent implements OnInit {
 
     const fraction = minutes / 60 * 100;
     let fractionWithLessDecimals = Math.floor(fraction * 100) / 100;
-
 
     return ',' + fractionWithLessDecimals;
   }
