@@ -23,6 +23,15 @@ export interface Time {
 
 export interface Account {
   id: string;
-  code: string;
+  codeId: string;
   times: Time[];
+}
+
+export interface Record {
+  id: string;
+  codeId: string;
+  date: Date;
+  hours: number;
+  minutes: number;
+  seconds: number;
 }

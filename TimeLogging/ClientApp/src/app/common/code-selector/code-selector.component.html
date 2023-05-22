@@ -1,7 +1,8 @@
 <p-autoComplete
-  [(ngModel)]="code"
+  [ngModel]="selected"
   [group]="true"
   [suggestions]="filteredCodes"
+  (onSelect)="onSelectCode($event)"
   (completeMethod)="filterCodes($event)"
   field="label"
   [dropdown]="true"

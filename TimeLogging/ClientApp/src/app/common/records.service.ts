@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Account } from './view';
+import { Record } from './view';
 import { BrokerService } from './broker.service';
 import { DateHelper } from './date.helper';
 
@@ -15,12 +15,12 @@ export class RecordsService {
 
   public get() {
     const dates = this.dateSelection();
-    return this.http.get<Account[]>(
+    return this.http.get<Record[]>(
       `/api/records?from=${dates.from.toISOString()}&to=${dates.to.toISOString()}`
     );
   }
 
-  public save(Accounts: Account[]) {
+  public save(Accounts: Record[]) {
     return this.http.post('/api/records', Accounts);
   }
 
@@ -32,7 +32,10 @@ export class RecordsService {
       case 'month':
         return { from: date, to: date };
       case 'week':
-        return { from: DateHelper.getFirstDayOfWeek(date), to: DateHelper.getLastDayOfWeek(date) };
+        return {
+          from: DateHelper.getFirstDayOfWeek(date),
+          to: DateHelper.getLastDayOfWeek(date),
+        };
       case 'day':
         return { from: date, to: date };
       default:

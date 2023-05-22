@@ -72,7 +72,7 @@
   "records": [
     {
       "id": "514f9b62-eb43-40f6-9f1c-b4de965d0ed3",
-      "parentId": "514f9b62-eb43-40f6-9f1c-b4de965d0ed3",
+      "codeId": "514f9b62-eb43-40f6-9f1c-b4de965d0ed3",
       "date": "2017-01-01",
       "hours": 8,
       "minutes": 30,

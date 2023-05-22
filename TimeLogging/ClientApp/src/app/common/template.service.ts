@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { map, Observable } from 'rxjs';
-import { Account } from './view';
+import {Account, Record} from './view';
 
 @Injectable({
   providedIn: 'root',
@@ -49,7 +49,8 @@ export class TemplateService {
     return this.templateItems.get(templateId) ?? [];
   }
 
-  public saveTemplate(accounts: Account[]) {
+  public saveTemplate(accounts: Record[]) {
+    // TODO: Map to ExTemplate
     return this.http.post('api/templates', accounts);
   }
 }

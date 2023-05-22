@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Subject, take, takeUntil } from 'rxjs';
-import { Account, Week } from '../../../common/view';
+import { Account, Record, Week } from '../../../common/view';
 import { BrokerService } from '../../../common/broker.service';
 import { TemplateService } from '../../../common/template.service';
-import {RecordsService} from "../../../common/records.service";
-import {DateSelectorService} from "../../../common/date-selector.service";
-import {DateHelper} from "../../../common/date.helper";
+import { RecordsService } from '../../../common/records.service';
+import { DateSelectorService } from '../../../common/date-selector.service';
+import { DateHelper } from '../../../common/date.helper';
 
 @Component({
   selector: 'app-week-view',
@@ -14,7 +14,7 @@ import {DateHelper} from "../../../common/date.helper";
   styleUrls: ['./week-view.component.scss'],
 })
 export class WeekViewComponent implements OnInit {
-  public accounts: Account[] = [];
+  public accounts: Record[] = [];
   public week: Week | null = null;
   public lastTemplate = this.templateService.lastTemplate;
   public options = [
@@ -70,7 +70,7 @@ export class WeekViewComponent implements OnInit {
 
   ngOnInit(): void {
     this.broker.get$<Date>('date').subscribe((date) => {
-      this.test(date);
+      this.setDays(date);
     });
 
     this.listTemplates();
@@ -80,12 +80,12 @@ export class WeekViewComponent implements OnInit {
     });
   }
 
-  public remove(account: Account) {
+  public remove(account: Record) {
     this.accounts = this.accounts.filter((a) => a !== account);
   }
 
   public new() {
-    this.accounts = [...this.accounts, { id: '', code: '', times: [] }];
+    this.accounts = [...this.accounts, { id: '', codeId: '', date: new Date(), hours: 0, minutes: 0, seconds: 0 }];
   }
 
   public save() {
@@ -97,7 +97,7 @@ export class WeekViewComponent implements OnInit {
     this.http.post('/api/driver', this.accounts).pipe(take(1)).subscribe();
   }
 
-  private test(date: Date) {
+  private setDays(date: Date) {
     const firstDayOfWeek = DateHelper.getFirstDayOfWeek(date);
 
     const week: Week = {
@@ -155,7 +155,12 @@ export class WeekViewComponent implements OnInit {
   }
 
   private loadRecords() {
-    this.recordsService.get().pipe(take(1)).subscribe((accounts) => { this.accounts = accounts; });
+    this.recordsService
+      .get()
+      .pipe(take(1))
+      .subscribe((accounts) => {
+        this.accounts = accounts;
+      });
   }
 
   private saveTemplate() {
@@ -181,5 +186,14 @@ export class WeekViewComponent implements OnInit {
 
   public loadTemplate(id: string) {
     return this.templateService.getTemplateItems(id);
+  }
+
+  public onCodeChange(account: Account, codeId: string) {
+    const accountIndex = this.accounts.findIndex((x) => x.id === account.id);
+    if (accountIndex === -1) {
+      return;
+    }
+
+    this.accounts[accountIndex].codeId = codeId;
   }
 }

@@ -91,7 +91,6 @@
         Friday
         <div>{{ week?.friday | date : "dd/MM/yyyy" }}</div>
       </th>
-      <!--      TODO: Show week and work week-->
       <th [hidden]="selectButtonValue === 2">
         Saturday
         <div>{{ week?.saturday | date : "dd/MM/yyyy" }}</div>
@@ -107,7 +106,7 @@
   <ng-template pTemplate="body" let-account>
     <tr>
       <td>
-        <app-code-selector [code]="account.name"></app-code-selector>
+        <app-code-selector [code]="account.codeId" (codeChange)="onCodeChange(account, $event)"></app-code-selector>
       </td>
       <td>
         <app-hour-selector
