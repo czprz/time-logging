@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Record } from './view';
 import { BrokerService } from './broker.service';
 import { DateHelper } from './date.helper';
+import {map} from "rxjs";
 
 @Injectable({
   providedIn: 'root',
@@ -17,7 +18,7 @@ export class RecordsService {
     const dates = this.dateSelection();
     return this.http.get<Record[]>(
       `/api/records?from=${dates.from.toISOString()}&to=${dates.to.toISOString()}`
-    );
+    ).pipe(map((records) => this.mapRecords(records)));
   }
 
   public save(Accounts: Record[]) {
@@ -41,5 +42,18 @@ export class RecordsService {
       default:
         throw new Error('Not supported calendar view');
     }
+  }
+
+  private mapRecords(records: Record[]) {
+    return records.map((record) => {
+      const date = new Date(record.date);
+      return {
+        ...record,
+        date,
+        hours: record.hours,
+        minutes: record.minutes,
+        seconds: record.seconds,
+      };
+    });
   }
 }

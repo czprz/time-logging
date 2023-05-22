@@ -10,4 +10,3 @@ export class HourLoggingComponent {
   public view = View;
   public selectedView = View.Week;
 }
-

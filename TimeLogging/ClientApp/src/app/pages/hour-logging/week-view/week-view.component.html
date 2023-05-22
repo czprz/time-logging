@@ -110,44 +110,37 @@
       </td>
       <td>
         <app-hour-selector
-          [value]="account.times"
-          [date]="week?.monday"
+          [record]="account.getTime(week?.monday)"
         ></app-hour-selector>
       </td>
       <td>
         <app-hour-selector
-          [value]="account.times"
-          [date]="week?.tuesday"
+          [record]="account.getTime(week?.tuesday)"
         ></app-hour-selector>
       </td>
       <td>
         <app-hour-selector
-          [value]="account.times"
-          [date]="week?.wednesday"
+          [record]="account.getTime(week?.wednesday)"
         ></app-hour-selector>
       </td>
       <td>
         <app-hour-selector
-          [value]="account.times"
-          [date]="week?.thursday"
+          [record]="account.getTime(week?.thursday)"
         ></app-hour-selector>
       </td>
       <td>
         <app-hour-selector
-          [value]="account.times"
-          [date]="week?.friday"
+          [record]="account.getTime(week?.friday)"
         ></app-hour-selector>
       </td>
       <td [hidden]="selectButtonValue === 2">
         <app-hour-selector
-          [value]="account.times"
-          [date]="week?.saturday"
+          [record]="account.getTime(week?.saturday)"
         ></app-hour-selector>
       </td>
       <td [hidden]="selectButtonValue === 2">
         <app-hour-selector
-          [value]="account.times"
-          [date]="week?.sunday"
+          [record]="account.getTime(week?.sunday)"
         ></app-hour-selector>
       </td>
       <td>

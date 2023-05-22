@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Subject, take, takeUntil } from 'rxjs';
-import { Account, Record, Week } from '../../../common/view';
+import { Record, Records, Week } from '../../../common/view';
 import { BrokerService } from '../../../common/broker.service';
 import { TemplateService } from '../../../common/template.service';
 import { RecordsService } from '../../../common/records.service';
@@ -14,7 +14,7 @@ import { DateHelper } from '../../../common/date.helper';
   styleUrls: ['./week-view.component.scss'],
 })
 export class WeekViewComponent implements OnInit {
-  public accounts: Record[] = [];
+  public accounts: Records[] = [];
   public week: Week | null = null;
   public lastTemplate = this.templateService.lastTemplate;
   public options = [
@@ -75,17 +75,25 @@ export class WeekViewComponent implements OnInit {
 
     this.listTemplates();
 
-    this.recordsService.get().subscribe((accounts) => {
-      this.accounts = accounts;
-    });
+    this.loadRecords();
   }
 
   public remove(account: Record) {
-    this.accounts = this.accounts.filter((a) => a !== account);
+    // this.accounts = this.accounts.filter((a) => a !== account);
   }
 
   public new() {
-    this.accounts = [...this.accounts, { id: '', codeId: '', date: new Date(), hours: 0, minutes: 0, seconds: 0 }];
+    // this.accounts = [
+    //   ...this.accounts,
+    //   {
+    //     id: '',
+    //     codeId: '',
+    //     date: new Date(),
+    //     hours: 0,
+    //     minutes: 0,
+    //     seconds: 0,
+    //   },
+    // ];
   }
 
   public save() {
@@ -159,12 +167,12 @@ export class WeekViewComponent implements OnInit {
       .get()
       .pipe(take(1))
       .subscribe((accounts) => {
-        this.accounts = accounts;
+        this.accounts = this.mapRecords(accounts);
       });
   }
 
   private saveTemplate() {
-    this.templateService.saveTemplate(this.accounts);
+    // this.templateService.saveTemplate(this.accounts);
   }
 
   public listTemplates() {
@@ -188,12 +196,27 @@ export class WeekViewComponent implements OnInit {
     return this.templateService.getTemplateItems(id);
   }
 
-  public onCodeChange(account: Account, codeId: string) {
+  public onCodeChange(account: Record, codeId: string) {
     const accountIndex = this.accounts.findIndex((x) => x.id === account.id);
     if (accountIndex === -1) {
       return;
     }
 
     this.accounts[accountIndex].codeId = codeId;
+  }
+
+  private mapRecords(records: Record[]) {
+    const mappedAccounts: Records[] = [];
+
+    for (const record of records) {
+      const accountIndex = mappedAccounts.findIndex((x) => x.id === record.id);
+      if (accountIndex === -1) {
+        mappedAccounts.push(new Records(record));
+      } else {
+        mappedAccounts[accountIndex].add(record);
+      }
+    }
+
+    return mappedAccounts;
   }
 }

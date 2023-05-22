@@ -1,5 +1,5 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {Time} from "../view";
+import {Record, Time} from "../view";
 
 @Component({
   selector: 'app-hour-selector',
@@ -11,36 +11,42 @@ export class HourSelectorComponent implements OnInit {
   public onValueChanged = new EventEmitter<string>();
 
   @Input()
-  public value: Time[] = [];
-
-  @Input()
-  public date: Date | null | undefined;
+  public record!: Record;
 
   public actualValue = '';
 
   ngOnInit(): void {
-    if (!this.value) {
+    console.log(this.record);
+    if (!this.record) {
       return;
     }
 
-    const time = this.value.find(x => this.isWithinSameDay(x.date));
-    if (!time) {
-      return;
-    }
-
-    this.actualValue = time?.time ?? '';
-  }
-
-  private isWithinSameDay(date: Date) {
-    const newDate = new Date(date);
-    return newDate.getFullYear() === this.date?.getFullYear() &&
-      newDate.getMonth() === this.date?.getMonth() &&
-      newDate.getDate() === this.date?.getDate();
+    this.actualValue = this.formatTime(this.record);
   }
 
   onChange($event: Event) {
     const target = $event.target as HTMLInputElement;
     this.actualValue = target.value;
     this.onValueChanged.emit(this.actualValue);
+  }
+
+  public formatTime(record: Record): string {
+    return record.hours + this.getMinutes(record.minutes);
+  }
+
+  private getMinutes(minutes: number): string {
+    if (minutes == 0) {
+      return '';
+    }
+
+    if (minutes % 60 == 0) {
+      return '';
+    }
+
+    const fraction = minutes / 60 * 100;
+    let fractionWithLessDecimals = Math.floor(fraction * 100) / 100;
+
+
+    return ',' + fractionWithLessDecimals;
   }
 }
