@@ -79,6 +79,9 @@ export class Records {
   }
 
   private getDay(date: Date) {
-    return date.toISOString().split('T')[0];
+    let year = date.getFullYear();
+    let month = String(date.getMonth() + 1).padStart(2, '0');
+    let day = String(date.getDate()).padStart(2, '0');
+    return `${year}-${month}-${day}`;
   }
 }
