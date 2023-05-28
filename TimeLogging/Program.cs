@@ -3,11 +3,14 @@ using Asp.Versioning.Conventions;
 using Microsoft.Extensions.Options;
 using Swashbuckle.AspNetCore.SwaggerGen;
 using TimeLogging.Endpoints;
+using TimeLogging.Grpc;
 using TimeLogging.Maps;
 using TimeLogging.OpenApi;
 using TimeLogging.Services;
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddTimeLoggingClient();
 
 builder.Services.AddTransient<IRecordMap, RecordMap>();
 builder.Services.AddTransient<IRecordService, RecordService>();

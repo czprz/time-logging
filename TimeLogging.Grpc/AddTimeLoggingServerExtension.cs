@@ -7,5 +7,7 @@ public static class AddTimeLoggingServerExtension
     public static void AddTimeLoggingServer(this IServiceCollection services)
     {
         services.AddGrpc();
+        
+        
     }
 }

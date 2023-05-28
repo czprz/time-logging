@@ -10,7 +10,7 @@ namespace TimeLogging.Grpc;
 
 public static class AddTimeLoggingClientExtension
 {
-    public static void AddTimeLoggingClient(this IServiceCollection services, Action<Config> configure)
+    public static void AddTimeLoggingClient(this IServiceCollection services, Action<Config>? configure = null)
     {
         var config = Configure(configure);
 
@@ -27,11 +27,11 @@ public static class AddTimeLoggingClientExtension
         services.AddSingleton<IRecords, Records>();
     }
 
-    private static Config Configure(Action<Config> action)
+    private static Config Configure(Action<Config>? action)
     {
         var config = new Config();
 
-        action(config);
+        action?.Invoke(config);
 
         config.Address ??= Environment.GetEnvironmentVariable("GRPC_CHANNEL")!;
         

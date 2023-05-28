@@ -1,10 +1,10 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {Record, Time} from "../view";
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Record } from '../view';
 
 @Component({
   selector: 'app-hour-selector',
   templateUrl: './hour-selector.component.html',
-  styleUrls: ['./hour-selector.component.scss']
+  styleUrls: ['./hour-selector.component.scss'],
 })
 export class HourSelectorComponent implements OnInit {
   @Output()
@@ -42,7 +42,7 @@ export class HourSelectorComponent implements OnInit {
       return '';
     }
 
-    const fraction = minutes / 60 * 100;
+    const fraction = (minutes / 60) * 100;
     let fractionWithLessDecimals = Math.floor(fraction * 100) / 100;
 
     return ',' + fractionWithLessDecimals;

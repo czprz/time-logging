@@ -16,6 +16,7 @@ public class TemplateMap : ITemplateMap
         {
             Id = template.Id,
             Name = template.Name,
+            Description = template.Description,
             Items = template.Items.Select(item => new TemplateItem
             {
                 Id = item.Id,
