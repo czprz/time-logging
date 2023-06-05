@@ -30,4 +30,4 @@ jobs:
     - name: Publish
       env:
         SOURCE: https://nuget.pkg.github.com/czprz/index.json
-      run: dotnet nuget push "bin/Release/TimeLogging.Interfaces.*.nupkg" -k ${GITHUB_TOKEN} -s $SOURCE --skip-duplicate
+      run: dotnet nuget push "bin/Release/TimeLogging.Interfaces.*.nupkg" -k ${GITHUB_TOKEN} --source $SOURCE --skip-duplicate
