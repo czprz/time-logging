@@ -28,4 +28,4 @@ jobs:
     - name: Pack
       run: dotnet pack --configuration Release
     - name: Publish
-      run: dotnet nuget push "bin/Release/TimeLogging.Interfaces.*.nupkg"  --api-key ${{ env.PAT }} --source "github"
+      run: dotnet nuget push "bin/Release/TimeLogging.Interfaces.*.nupkg"  --api-key $PAT --source "github"
