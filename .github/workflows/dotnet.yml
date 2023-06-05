@@ -7,6 +7,10 @@ on:
   push:
     branches: [ "main" ]
     tags: [ 'v*.*.*' ]
+    
+defaults:
+  run:
+    working-directory: ./TimeLogging.Grpc
 
 jobs:
   build:
@@ -19,8 +23,6 @@ jobs:
       uses: actions/setup-dotnet@v3
       with:
         dotnet-version: 7.0.x
-    - name: Move context
-      run: cd ./TimeLogging.Grpc
     - name: Restore dependencies
       run: dotnet restore
     - name: Build
