@@ -14,13 +14,13 @@ jobs:
     runs-on: ubuntu-latest
     
     steps:
-    - name: Move context
-      run: cd ./TimeLogging.Grpc
     - uses: actions/checkout@v3
     - name: Setup .NET
       uses: actions/setup-dotnet@v3
       with:
         dotnet-version: 7.0.x
+    - name: Move context
+      run: cd ./TimeLogging.Grpc
     - name: Restore dependencies
       run: dotnet restore
     - name: Build
