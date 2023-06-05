@@ -29,5 +29,5 @@ jobs:
       run: dotnet pack --configuration Release
     - name: Publish
       env:
-        TOKEN: ${{ GITHUB_TOKEN }}
+        TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: dotnet nuget push "bin/Release/TimeLogging.Interfaces.*.nupkg" -k $TOKEN -s https://nuget.pkg.github.com/czprz/index.json --skip-duplicate --no-symbols true
