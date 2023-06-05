@@ -30,4 +30,5 @@ jobs:
     - name: Publish
       env:
         TOKEN: ${{ secrets.PAT }}
-      run: dotnet nuget push "bin/Release/TimeLogging.Interfaces.*.nupkg"  --api-key $TOKEN --source "github"
+        SOURCE: https://nuget.pkg.github.com/czprz/time-logging/index.json
+      run: dotnet nuget push "bin/Release/TimeLogging.Interfaces.*.nupkg"  --api-key $TOKEN --source $SOURCE
