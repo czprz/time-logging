@@ -25,7 +25,7 @@ jobs:
         source-url: https://nuget.pkg.github.com/czprz/index.json
         dotnet-version: 7.0.x
       env:
-        NUGET_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        NUGET_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
     - name: Restore dependencies
       run: dotnet restore
     - name: Pack
