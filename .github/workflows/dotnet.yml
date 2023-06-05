@@ -15,7 +15,7 @@ jobs:
     
     steps:
     - name: Move context
-      run: cd /TimeLogging.Grpc
+      run: cd ./TimeLogging.Grpc
     - uses: actions/checkout@v3
     - name: Setup .NET
       uses: actions/setup-dotnet@v3
